@@ -33,4 +33,4 @@ python3 onnxrt_ep_fashionmist.py -c -m cl-ort-fashioncnn28
 
 
 # and execute on CPU as a test
-#python3 onnxrt_ep_fashionmist.py -d -m cl-ort-fashioncnn28
+python3 onnxrt_ep_fashionmist.py -d -m cl-ort-fashioncnn28

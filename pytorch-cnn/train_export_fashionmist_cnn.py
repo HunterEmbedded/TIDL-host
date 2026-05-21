@@ -12,6 +12,9 @@ from nn_models import CNN
 import onnx
 from onnx import shape_inference
 
+import os
+from PIL import Image
+import numpy as np
 
 
 model_name = "model_cnn"
@@ -165,4 +168,20 @@ model = shape_inference.infer_shapes(model)
 onnx.save(model, onnx_path_shaped)
 
 # The output of this process is file onnx_path_shaped which is f"{model_name}_shaped.onnx
+
+
+# export the training images if required for subsequent copy to target
+output_dir = "../fashionmist_test_images"
+
+if not os.path.isdir(output_dir):
+    os.makedirs(output_dir, exist_ok=True)
+
+    for i, (img, label) in enumerate(test_data):
+        img_np = (img.squeeze().numpy() * 255).astype(np.uint8)
+        filename = f"{i:05d}_label_{label}.png"
+        Image.fromarray(img_np).save(os.path.join(output_dir, filename))
+
+        if (i + 1) % 1000 == 0:
+            print(f"Saved {i+1}/{len(test_data)}")
+
 

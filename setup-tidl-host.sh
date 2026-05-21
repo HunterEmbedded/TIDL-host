@@ -9,10 +9,12 @@ if [ ! -d edgeai-tidl-tools ]; then
         git checkout rel_11_00
 fi 
 
+export SOC=am67a
+source ./setup.sh
+
 # now setup for BeagleY-AI
 python3 -m venv .venv-tidl
 source .venv-tidl/bin/activate
-python -m pip install --upgrade pip setuptools wheel
-
+python -m pip install -r requirements_pc.txt
 
 

@@ -158,7 +158,7 @@ torch.onnx.export(
     onnx_path,
     input_names=["input"],
     output_names=["output"],
-    opset_version=13,
+    opset_version=17,
     dynamo=False,
 )
 

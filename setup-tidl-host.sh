@@ -14,10 +14,10 @@ fi
 python3 -m venv .venv-tidl
 source .venv-tidl/bin/activate
 
-
+# setup the system
 export SOC=am67a
 source ./setup.sh
-
+# set up the env variables for specific board
 source ./setup_env.sh ${SOC}
 
 

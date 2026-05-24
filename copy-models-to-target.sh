@@ -1,7 +1,7 @@
 #!/bin/bash
 # copy host built files to BeagleY-AI
 
-TARGET="10.159.1.23"
+TARGET="10.159.1.44"
 
 
 # Copy the test files to target if they are not already there
@@ -21,3 +21,8 @@ scp  examples/osrt_python/ort/onnxrt_ep_fashionmist.py root@${TARGET}:/root/beag
 # copy runtime bash script
 scp ../fashionmist_model_files/run-cnn-on-accelerator.sh root@${TARGET}:/root/beagley-ai-tidl/edgeai-tidl-tools/examples/osrt_python/ort
 
+
+# copy example models
+scp -r models/public root@${TARGET}:/root/beagley-ai-tidl/edgeai-tidl-tools/models/
+scp -r model-artifacts root@${TARGET}:/root/beagley-ai-tidl/edgeai-tidl-tools/model-artifacts/
+scp  examples/osrt_python/ort/onnxrt_ep.py root@${TARGET}:/root/beagley-ai-tidl/edgeai-tidl-tools/examples/osrt_python/ort

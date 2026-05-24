@@ -6,7 +6,7 @@
 if [ ! -d edgeai-tidl-tools ]; then
         git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git || exit
         cd edgeai-tidl-tools
-        git checkout rel_11_00
+        git checkout 11_00_06_00
 fi 
 
 

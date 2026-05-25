@@ -125,17 +125,15 @@ def create_session(
         if not tidl_tools_path:
             raise RuntimeError("TIDL_TOOLS_PATH is not set in environment")
 
-        #providers = ["TIDLCompilationProvider", "CPUExecutionProvider"]
         providers = ["TIDLCompilationProvider"]
         provider_options = [
             {
                 "tidl_tools_path": tidl_tools_path,
                 "artifacts_folder": str(artifact_dir),
-                "debug_level": "2",
-                "advanced_options:c7x_firmware_version":"11_00_08_00",
+                "debug_level": "0",
+                "advanced_options:c7x_firmware_version":"11_00_06_00",
                 "advanced_options:core_number": 1,
             },
-        #    {},
         ]
     else:
         tidl_tools_path = os.environ.get("TIDL_TOOLS_PATH")
@@ -145,33 +143,14 @@ def create_session(
             {
                 "tidl_tools_path": tidl_tools_path,
                 "artifacts_folder": str(artifact_dir),
-                "debug_level": "2",
+                "debug_level": "0",
                 "advanced_options:core_number": 1,
             },
             {},
         ]
     print("Using providers:", providers)
 
-    so = ort.SessionOptions()
-
-    # Maximum verbosity
-    so.log_severity_level = 0     # 0=verbose, 1=info, 2=warning, 3=error, 4=fatal
-    so.log_verbosity_level = 4
-
-    # Useful for debugging TIDL import/session creation hangs
-    so.enable_profiling = True
-
-    # Optional: disable ORT graph rewrites while debugging
-    so.graph_optimization_level = ort.GraphOptimizationLevel.ORT_DISABLE_ALL
-
     print("Creating ONNX Runtime session...", flush=True)
-    # start debug
-    s = ort.InferenceSession(str(model_path), providers=["CPUExecutionProvider"])
-    for i in s.get_inputs():
-        print(i.name, i.shape, i.type)
-    for o in s.get_outputs():
-        print(o.name, o.shape, o.type)
-    #end debug
     return ort.InferenceSession(
         str(model_path),
         providers=providers,
